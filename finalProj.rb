@@ -20,5 +20,6 @@ end
 def main
   test = WORDGAME.new()
   test.intro
+  test.random(dict.txt)
 end
 main()
