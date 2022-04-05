@@ -14,8 +14,10 @@ class WORDGAME
   def random(file)
     returnVal = ""
     words = Array.new()
-    line = File.readlines("dict.txt")
-    count = words.size
+    count = words.size()
+    file = File.open("dict.txt", "r")
+
+    file.close
 
   end
 
