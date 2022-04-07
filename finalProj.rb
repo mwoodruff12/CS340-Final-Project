@@ -23,12 +23,12 @@ class WORDGAME
     returnVal = ""
     words = Array.new()
     file = File.foreach("dict.txt") { |line| words << line }
+    puts file
     count = words.size()
     randomVal = rand(0..count)
     randomWord = words[randomVal]
     file.close
     return randomWord
-
   end
 
   def playOneGame(secretWord)
@@ -51,16 +51,17 @@ class WORDGAME
     #creates a variable and sets it to the return
     check = readGuess(@_guesses);
 
-    if (@_secretWord.include?(@_guesses[0] == true)
+    if (@_secretWord.include?(@_guesses[0] == true))
       puts "Correct!"
       # update = updateHint(secretWord, HINT, check)
       puts("Your Guesses: "+ @_guesses)
     else
       puts("Incorrect")
-      guessesLeft--
+      guessesLeft = guessesLeft - 1
     end
+    
 
-    while (@_hint.include?("-"))
+    while (@_hint.include?("-")) do
       # outputs the current hint, how many guesses are left, and their total guesses
       puts("Secret Word: " + @_)
       puts("Guesses left: " + guessesLeft)
@@ -71,14 +72,15 @@ class WORDGAME
       
 
       # checks to see if the current guess is not in the word.
-      if @_secretWord.include? (@_guesses[0, @_guesses.length - 1] == false)
+      if @_secretWord.include?(@_guesses[0, @_guesses.length - 1] == False)
         puts "Incorrect"
-        guessesLeft--
+        guessesLeft = guessesLeft - 1
       # else outputs that they were correct and updates the hint.
       else
         puts("Correct!")
         update = updateHint(@_secretWord, @_hint, check);
       end
+
       
       # if statement that checks to see if the player has used all of their guesses.
       if (guessesLeft == 0)
@@ -87,6 +89,7 @@ class WORDGAME
         puts("Secret Word was: " + @_secretWord);
         return guessesLeft;
       end
+    end
 
     return guessesLeft
 
@@ -125,7 +128,7 @@ class WORDGAME
     # else, runs when the character has length 1 and hasn't been already guessed.
     else
       # adds it to the total guess and returns that character
-      @_guesses += ch;
+      @_guesses = @_guesses + ch;
       return ch;
     end
 
@@ -140,7 +143,7 @@ class WORDGAME
       # checks to see if the character at the current location equals the character being guessed.
       if (secretWord[i] == nextGuess)
         #iterates the count
-        count++
+        count = count + 1
       end
     end
       
@@ -160,8 +163,8 @@ class WORDGAME
       @_hint = ""
       
       # for loop that runs through the char array and adds them back to the hint string
-      for i in 0..(hintCharacters.length - ) do
-        @_hint += hintCharacters[i]
+      for i in 0..(hintCharacters.length - 1) do
+        @_hint = @_hint + hintCharacters[i]
       end
       
       # returns the hint string.
@@ -173,7 +176,7 @@ class WORDGAME
       indice = secretWord.index(nextGuess);
       
       # creates a character array from the current hint string
-      char[] hintCharacters = currentHint.toCharArray();
+      hintCharacters = currentHint.split("");
       
       # changes that value at that index to the guessed character.
       hintCharacters[index] = nextGuess;
@@ -183,7 +186,7 @@ class WORDGAME
       
       # reads the values from the character array back to the hint string.
       for j in 0..(hintCharacters.length - 1) do
-        @_hint += hintCharacters[j]
+        @_hint = @_hint + hintCharacters[j]
       end
       
       # handles the remaining characters.
@@ -202,11 +205,11 @@ class WORDGAME
         
         #reads the values from the array back to the hint string.
         for k in 0..(hintCharacters.length -1) do
-          @_hint += hintCharacters[k]
+          @_hint = @_hint + hintCharacters[k]
         end
         
         #deiterates the count.
-        count--
+        count = count - 1
       end
     end
       
@@ -235,7 +238,7 @@ class WORDGAME
     #else runs when the player won
     else 
       #outputs that the player won along with how many guesses they had left.
-      print("You Win! You had " + game + " guesses remaining. Secret Word was: " + @_secretWord
+      print("You Win! You had " + game + " guesses remaining. Secret Word was: " + @_secretWord)
     end
 
 
@@ -291,9 +294,11 @@ class WORDGAME
 end
 
 
-
 def main
+  
   test = WORDGAME.new()
-  test.run
+  test.run()
+
 end
+
 main()
