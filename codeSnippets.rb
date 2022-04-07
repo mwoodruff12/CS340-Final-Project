@@ -5,11 +5,13 @@ def main()
   # randomVal = rand(0..count)
   # puts randomVal - 1
   # puts words[randomVal]
-  x = 12
-  if x > 2
-    puts("hig")
-  else
-    puts("low")
-  end
+  # x = 12
+  # if x > 2
+  #   puts("hig")
+  # else
+  #   puts("low")
+  # end
+  test = "hello"
+  puts(test.length)
 end
 main()

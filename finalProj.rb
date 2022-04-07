@@ -27,7 +27,6 @@ class WORDGAME
     count = words.size()
     randomVal = rand(0..count)
     randomWord = words[randomVal]
-    file.close
     return randomWord
   end
 
