@@ -296,7 +296,7 @@ class WORDGAME
     end
     # if the user entered no then it outputs that the code is ending.
     if (text == "NO")
-      print("Ending Code.")
+      print("Thank you for playing.")
     end
 
   end 
