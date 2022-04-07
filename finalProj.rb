@@ -22,11 +22,12 @@ class WORDGAME
   def getRandom(file)
     returnVal = ""
     words = Array.new()
+    file = File.foreach("dict.txt") { |line| words << line }
     count = words.size()
-    file = File.open("dict.txt", "r")
-
+    randomVal = rand(0..count)
+    randomWord = words[randomVal]
     file.close
-    return
+    return randomWord
 
   end
 
@@ -293,8 +294,6 @@ end
 
 def main
   test = WORDGAME.new()
-  test.intro
-  filename = "dict.txt"
-  test.getRandom(filename)
+  test.run
 end
-end
+main()
