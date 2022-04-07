@@ -8,7 +8,7 @@ SW = ""
 class WORDGAME
   def init()
     @_guesses = ""
-    @_hint =""
+    @_hint = ""
     @_secretWord = ""
   end
 
@@ -23,7 +23,6 @@ class WORDGAME
     returnVal = ""
     words = Array.new()
     file = File.foreach("dict.txt") { |line| words << line }
-    puts file
     count = words.size()
     randomVal = rand(0..count)
     randomWord = words[randomVal]
@@ -31,49 +30,54 @@ class WORDGAME
   end
 
   def playOneGame(secretWord)
-    @_secretWord = secretWord
+    @_secretWord = String(secretWord)
 
     guessLeft = 8
     length = secretWord.length
 
+    @_hint = ""
     for i in 0..(length - 1) do 
-      @_hint += "-"
+      @_hint = @_hint + "-"
     end
 
-    puts("Hint: " + @_hint)
-    puts("Your guesses: " + @_guesses)
-    puts("Guesses left: " + guessLeft)
+    hintDisplay = "Hint: "
+    guessesDisplay = "Your guesses: "
+    guessLeftDisplay = "Guesses left: "
+    secretDisplay = "Secret word was: "
+    guessLeftString = String(guessLeft)
+    puts(hintDisplay + @_hint)
+    puts(guessLeftDisplay + guessLeftString)
 
     # create var that will hold empty string
     update = ""
 
     #creates a variable and sets it to the return
-    check = readGuess(@_guesses);
+    check = readGuess(@_guesses)
 
-    if (@_secretWord.include?(@_guesses[0] == true))
+    if (@_secretWord.include?(@_guesses[0]))
       puts "Correct!"
       # update = updateHint(secretWord, HINT, check)
-      puts("Your Guesses: "+ @_guesses)
+      puts(guessesDisplay + @_guesses)
     else
       puts("Incorrect")
-      guessesLeft = guessesLeft - 1
     end
     
+    guessLeft = guessLeft - 1
 
     while (@_hint.include?("-")) do
       # outputs the current hint, how many guesses are left, and their total guesses
-      puts("Secret Word: " + @_)
-      puts("Guesses left: " + guessesLeft)
-      puts("Your Guesses: "+ @_guesses)
+      guessLeftString = String(guessLeft)
+      puts(guessLeftDisplay + guessLeftString)
+      puts(guessesDisplay + @_guesses)
       
       # calls the readguess method to get the next guess
       check = readGuess(@_guesses);
       
 
       # checks to see if the current guess is not in the word.
-      if @_secretWord.include?(@_guesses[0, @_guesses.length - 1] == False)
+      if !(@_secretWord.include?(@_guesses[0, @_guesses.length - 1]))
         puts "Incorrect"
-        guessesLeft = guessesLeft - 1
+        guessLeft = guessLeft - 1
       # else outputs that they were correct and updates the hint.
       else
         puts("Correct!")
@@ -82,15 +86,15 @@ class WORDGAME
 
       
       # if statement that checks to see if the player has used all of their guesses.
-      if (guessesLeft == 0)
+      if (guessLeft == 0)
       
         #if so then it outputs the secret word and returns to the run program
-        puts("Secret Word was: " + @_secretWord);
-        return guessesLeft;
+        puts(secretDisplay + @_secretWord)
+        return guessLeft
       end
     end
 
-    return guessesLeft
+    return guessLeft
 
   end
 
@@ -98,21 +102,24 @@ class WORDGAME
   def readGuess(guessLetter)
 
     # hold user current guess
-    print("Current Guess:")
-    currentGuess = gets.chomp
+    print("Current Guess: ")
+    currentGuess = gets.chomp.upcase
 
-    # raises the users guess to be a capital letter
-    currentGuess = currentGuess.upcase
     
     # turns the string into a character
     ch = currentGuess[0]
+
+    if @_guesses == nil
+      @_guesses = ch
+    end
     
     # checks to see if the length of the guess is longer than 1
+
+
     if (currentGuess.length > 1)
 
       # if so outputs that the guess was too long and recalls the readguess method passing in the players total guesses
-      print("Type a single letter from A-Z")
-      
+      print("Type a single letter from A-Z")        
       # recursively calls the readGuess method and then returns a correct character
       return readGuess(@_guesses);
     # else if checks to see if the player has already entered in that guess.
@@ -120,7 +127,7 @@ class WORDGAME
     elsif(@_guesses.include?(currentGuess))
       # if so then outputs that they have already entered that guess and recalls the readguess method.
       print("You already entered that letter");
-      
+        
       # recursively calls the readGuess method and then returns a correct character
       return readGuess(@_guesses);
 
@@ -130,6 +137,7 @@ class WORDGAME
       @_guesses = @_guesses + ch;
       return ch;
     end
+
 
   end
 
@@ -225,7 +233,7 @@ class WORDGAME
     filename = "dict.txt";
     
     # calls and sets the getRandomWord method using the filename to a variable
-    secretWord = getRandom(filename)
+    @_secretWord = getRandom(filename)
     
     #calls the playonegame method passing in the secret word
     game = playOneGame(@_secretWord)
@@ -297,6 +305,7 @@ def main
   
   test = WORDGAME.new()
   test.run()
+
 
 end
 
