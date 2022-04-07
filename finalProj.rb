@@ -56,7 +56,7 @@ class WORDGAME
 
     if (@_secretWord.include?(@_guesses[0]))
       puts "Correct!"
-      # update = updateHint(secretWord, HINT, check)
+      update = updateHint(@_secretWord, @_hint, check)
       puts(guessesDisplay + @_guesses)
     else
       puts("Incorrect")
@@ -113,7 +113,7 @@ class WORDGAME
       @_guesses = ch
     end
     
-    # checks to see if the length of the guess is longer than 1
+    #checks to see if the length of the guess is longer than 1
 
 
     if (currentGuess.length > 1)
@@ -126,7 +126,10 @@ class WORDGAME
 
     elsif(@_guesses.include?(currentGuess))
       # if so then outputs that they have already entered that guess and recalls the readguess method.
-      print("You already entered that letter");
+
+      if (@_guesses.length > 1)
+        print("You already entered that letter")
+      end
         
       # recursively calls the readGuess method and then returns a correct character
       return readGuess(@_guesses);
