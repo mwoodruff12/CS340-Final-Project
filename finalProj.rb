@@ -1,6 +1,6 @@
 # CS Final 
 
-class WORDGAME
+class Hangman
   def init()
     @_guesses = ""
     @_hint = ""
@@ -275,9 +275,12 @@ class WORDGAME
         
         # clears the users previous guesses from their last game.
         @_guesses = ""
+
+        # clear the users previous fails
+        @_failedattempts = 0
         
         # calls the play game method passing in the new secret word
-        game = playOneGame(@_secretWord)  
+        game = String(playOneGame(@_secretWord))  
         
         #looks at if the returned value is 0, if so then the player looses and it outputs what the secret word was.
         if (game == 0)
@@ -371,7 +374,7 @@ end
 
 def main
   
-  test = WORDGAME.new()
+  test = Hangman.new()
   test.run()
 
 
