@@ -242,7 +242,7 @@ class Hangman
     @_secretWord = getRandom(filename)
     
     #calls the playonegame method passing in the secret word
-    game = String(playOneGame(@_secretWord))
+    game = playOneGame(@_secretWord)
     
     # if the game returns 0, it means the player lost.
     if (game == 0)
@@ -250,8 +250,9 @@ class Hangman
       print("You ran out of guesses, You lose! Secret Word was: " + @_secretWord)
     #else runs when the player won
     else 
+      output = String(game)
       #outputs that the player won along with how many guesses they had left.
-      print("You Win! You had " + game + " guesses remaining. Secret Word was: " + @_secretWord)
+      print("You Win! You had " + output + " guesses remaining. Secret Word was: " + @_secretWord)
     end
 
 
@@ -280,7 +281,7 @@ class Hangman
         @_failedattempts = 0 
         
         # calls the play game method passing in the new secret word
-        game = String(playOneGame(@_secretWord))  
+        game = playOneGame(@_secretWord)
         
         #looks at if the returned value is 0, if so then the player looses and it outputs what the secret word was.
         if (game == 0)
@@ -288,7 +289,8 @@ class Hangman
         
         #else, runs if the player won. outputs that they won, how many guesses they had remaining, and what the secret word was.
         else 
-          print("You Win! You had " + game + " guesses remaining. Secret Word was: " + @_secretWord);
+          output = String(game)
+          print("You Win! You had " + output + " guesses remaining. Secret Word was: " + @_secretWord);
         end
 
       end
