@@ -78,7 +78,8 @@ class WORDGAME
     while (@_hint.include?("-")) do
       # outputs the current hint, how many guesses are left, and their total guesses
       guessLeftString = String(guessLeft)
-      puts("Hint" + @_hint)
+      H2 = String(@_hint)
+      puts(hintDisplay + H2)
       puts(guessLeftDisplay + guessLeftString)
       puts(guessesDisplay + @_guesses)
       
