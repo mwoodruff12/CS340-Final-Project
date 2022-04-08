@@ -1,15 +1,11 @@
 # CS Final 
 
-# global vars??
-GUESSES = ""
-HINT =""
-SW = ""
-
 class WORDGAME
   def init()
     @_guesses = ""
     @_hint = ""
     @_secretWord = ""
+    @_failedattempts = 0
   end
 
 
@@ -41,7 +37,6 @@ class WORDGAME
   end
 
   def playOneGame(secretWord)
-
 
     @_secretWord = String(secretWord)
 
@@ -76,6 +71,7 @@ class WORDGAME
       puts("Incorrect")
       puts(@_hint)
       guessLeft = guessLeft - 1
+      print_toon(1)
     end
     
 
@@ -99,6 +95,7 @@ class WORDGAME
         puts("Incorrect!")
         puts(@_hint)
         guessLeft = guessLeft - 1
+        print_toon(1)
       end
 
       
@@ -305,6 +302,68 @@ class WORDGAME
       print("Thank you for playing.")
     end
 
+  end
+
+  def print_toon(increment)
+    if @_failedattempts == nil
+      @_failedattempts = increment
+    else 
+      @_failedattempts = @_failedattempts + increment
+    end
+
+    case @_failedattempts
+    when 0
+      puts "  ______"
+      puts " |      |"
+      puts "        |"
+      puts "        |"
+      puts "        |"
+    when 1
+      puts "   ______"
+      puts "  |      |"
+      puts "  \u{1F604}     |"
+      puts "         |"
+      puts "         |"
+    when 2
+      puts "   ______"
+      puts "  |      |"
+      puts "  \u{1F60A}     |"
+      puts " |       |"
+      puts "         |"
+    when 3
+      puts "   ______"
+      puts "  |      |"
+      puts "  \u{1F606}     |"
+      puts " | |     |"
+      puts "         |"  
+    when 4
+      puts "   ______"
+      puts "  |      |"
+      puts "  \u{1F605}     |"
+      puts "/| |     |"
+      puts "         |"
+    when 5
+      puts "   ______"
+      puts "  |      |"
+      puts " \u{1F613}      |"
+      puts "/| |\\    |"
+      puts "         |"
+    when 6
+      puts "   ______"
+      puts "  |      |"
+      puts " \u{1F633}      |"
+      puts "/| |\\    |"
+      puts "/        |"
+    when 7
+      puts "   _______"
+      puts "  |       |"
+      puts " \u{1F631}       |"
+      puts "/| |\\     |"
+      puts "/   \\     |"   
+    when 8
+       puts "DEAD\u{1F480}"      
+    end
+    puts ""
   end 
 
 end
