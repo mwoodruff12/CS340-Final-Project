@@ -18,14 +18,25 @@ class WORDGAME
   end
 
 
-  # TO DO TRAVIS
+  # returns a random word from the read in file
   def getRandom(file)
-    returnVal = ""
+
+    #creates a new array that will hold the words from the file.
     words = Array.new()
+
+    #reads in each line of the file, each line is then put into the array of words
     file = File.foreach("dict.txt") { |line| words << line }
+
+    #count is initialized to be the size of the array
     count = words.size()
+
+    #randomVal is initilalized as a random value from 0 to count
     randomVal = rand(0..count)
+
+    #randomWord is initialized as the word in the array using the randomVal as the index of the array
     randomWord = words[randomVal]
+
+    #returns the randomWord
     return randomWord
   end
 
@@ -67,6 +78,7 @@ class WORDGAME
     while (@_hint.include?("-")) do
       # outputs the current hint, how many guesses are left, and their total guesses
       guessLeftString = String(guessLeft)
+      puts("Hint" + @_hint)
       puts(guessLeftDisplay + guessLeftString)
       puts(guessesDisplay + @_guesses)
       
