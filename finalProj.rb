@@ -41,10 +41,12 @@ class WORDGAME
   end
 
   def playOneGame(secretWord)
+
+
     @_secretWord = String(secretWord)
 
     guessLeft = 8
-    length = secretWord.length
+    length = secretWord.length - 1
 
     @_hint = ""
     for i in 0..(length - 1) do 
@@ -67,19 +69,19 @@ class WORDGAME
 
     if (@_secretWord.include?(@_guesses[0]))
       puts "Correct!"
-      update = updateHint(@_secretWord, @_hint, check)
+      @_hint = updateHint(@_secretWord, @_hint, check)
       puts(guessesDisplay + @_guesses)
+      puts(@_hint)
     else
       puts("Incorrect")
+      puts(@_hint)
+      guessLeft = guessLeft - 1
     end
     
-    guessLeft = guessLeft - 1
 
     while (@_hint.include?("-")) do
       # outputs the current hint, how many guesses are left, and their total guesses
       guessLeftString = String(guessLeft)
-      # H2 = String(@_hint)
-      # puts(hintDisplay + H2)
       puts(guessLeftDisplay + guessLeftString)
       puts(guessesDisplay + @_guesses)
       
@@ -87,14 +89,16 @@ class WORDGAME
       check = readGuess(@_guesses);
       
 
-      # checks to see if the current guess is not in the word.
-      if !(@_secretWord.include?(@_guesses[0, @_guesses.length - 1]))
-        puts "Incorrect"
-        guessLeft = guessLeft - 1
+      # checks to see if the current guess is in the word.
+      if (@_secretWord.include?(check))
+        puts "Correct"
+        @_hint = updateHint(@_secretWord, @_hint, check)
+        puts(@_hint)
       # else outputs that they were correct and updates the hint.
       else
-        puts("Correct!")
-        update = updateHint(@_secretWord, @_hint, check);
+        puts("Incorrect!")
+        puts(@_hint)
+        guessLeft = guessLeft - 1
       end
 
       
@@ -115,39 +119,26 @@ class WORDGAME
   def readGuess(guessLetter)
 
     # hold user current guess
-    print("Current Guess: ")
+    print("Type letter (A-Z): ")
     currentGuess = gets.chomp.upcase
 
-    
     # turns the string into a character
     ch = currentGuess[0]
 
-    if @_guesses == nil
+    # no guesses yet 
+    if (@_guesses == nil)
       @_guesses = ch
-    end
-    
-    #checks to see if the length of the guess is longer than 1
 
-
-    if (currentGuess.length > 1)
-
-      # if so outputs that the guess was too long and recalls the readguess method passing in the players total guesses
-      print("Type a single letter from A-Z")        
-      # recursively calls the readGuess method and then returns a correct character
-      return readGuess(@_guesses);
-    # else if checks to see if the player has already entered in that guess.
-
+    # already guessed
     elsif(@_guesses.include?(currentGuess))
-      # if so then outputs that they have already entered that guess and recalls the readguess method.
 
-      if (@_guesses.length > 1)
-        print("You already entered that letter")
-      end
+      # if so then outputs that they have already entered that guess and recalls the readguess method.
+      print("You already entered that letter")
         
       # recursively calls the readGuess method and then returns a correct character
       return readGuess(@_guesses);
 
-    # else, runs when the character has length 1 and hasn't been already guessed.
+    # else, hasn't been already guessed.
     else
       # adds it to the total guess and returns that character
       @_guesses = @_guesses + ch;
@@ -157,20 +148,23 @@ class WORDGAME
 
   end
 
+# -----------------------------------------------------------------------------------------------------------
+
   def updateHint(secretWord, currentHint, nextGuess)
+
     #creates a count variable that keeps track of how many of that character is in the word.
     count = 0
-    
+
     # for loop that runs through the characters of the secretWord.
     for i in 0..(secretWord.length - 1) do
       # checks to see if the character at the current location equals the character being guessed.
-      if (secretWord[i] == nextGuess)
+      if (@_secretWord[i] == nextGuess)
         #iterates the count
         count = count + 1
       end
     end
+
       
-    
     # checks to see if count == 1, meaning that there is only of that character in the secretword.
     if (count == 1)
       # finds and sets the index of the character in the secret word
@@ -202,7 +196,7 @@ class WORDGAME
       hintCharacters = currentHint.split("");
       
       # changes that value at that index to the guessed character.
-      hintCharacters[index] = nextGuess;
+      hintCharacters[indice] = nextGuess;
       
       # sets hint to be empty
       @_hint = "";
@@ -227,7 +221,7 @@ class WORDGAME
         @_hint = ""
         
         #reads the values from the array back to the hint string.
-        for k in 0..(hintCharacters.length -1) do
+        for k in 0..((hintCharacters.length) - 1) do
           @_hint = @_hint + hintCharacters[k]
         end
         
@@ -235,7 +229,6 @@ class WORDGAME
         count = count - 1
       end
     end
-      
       
     #returns the updated hint.
     return @_hint
@@ -252,7 +245,7 @@ class WORDGAME
     @_secretWord = getRandom(filename)
     
     #calls the playonegame method passing in the secret word
-    game = playOneGame(@_secretWord)
+    game = String(playOneGame(@_secretWord))
     
     # if the game returns 0, it means the player lost.
     if (game == 0)
@@ -291,11 +284,11 @@ class WORDGAME
         
         #looks at if the returned value is 0, if so then the player looses and it outputs what the secret word was.
         if (game == 0)
-          print("You ran out of guesses, You lose! Secret Word was: " + secretWord);
+          print("You ran out of guesses, You lose! Secret Word was: " + @_secretWord);
         
         #else, runs if the player won. outputs that they won, how many guesses they had remaining, and what the secret word was.
         else 
-          print("You Win! You had " + game + " guesses remaining. Secret Word was: " + secretWord);
+          print("You Win! You had " + game + " guesses remaining. Secret Word was: " + @_secretWord);
         end
 
       end
