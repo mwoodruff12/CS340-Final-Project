@@ -1,10 +1,5 @@
 # CS Final 
 
-# global vars??
-GUESSES = ""
-HINT =""
-SW = ""
-
 class WORDGAME
   def init()
     @_guesses = ""
