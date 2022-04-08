@@ -277,7 +277,7 @@ class Hangman
         @_guesses = ""
 
         # clear the users previous fails
-        @_failedattempts = 0
+        @_failedattempts = 0 
         
         # calls the play game method passing in the new secret word
         game = String(playOneGame(@_secretWord))  
