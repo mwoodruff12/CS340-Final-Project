@@ -71,7 +71,7 @@ class WORDGAME
       puts "Correct!"
       @_hint = updateHint(@_secretWord, @_hint, check)
       puts(guessesDisplay + @_guesses)
-      puts(@_hint)
+      puts(hintDisplay + @_hint)
     else
       puts("Incorrect")
       puts(@_hint)
